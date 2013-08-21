@@ -137,24 +137,24 @@ sub decryptFile
 	
 	my $status = 1;
 	
-#	## we need to eval because the gpg call croaks?! on an error
-#	## decrypt file for processing
-#	eval 
-#	{ 
-#		$this->{'attributes'}->{'gpg'}->decrypt
-#		( 
-#			ciphertext  => $options->{'workingEncryptedFile'}, 
-#			output 		=> $options->{'tempDecryptedFile'},
-#			passphrase 	=> $options->{'passPhrase'}
-#		);
-#	};
-#	
-#	## catch error from decrypt call
-#	if ($@) 
-#	{
-#		$this->addErrors(qq|decrypt raised an exception: $@|);
-#		$status = 0;
-#	} 	
+	## we need to eval because the gpg call croaks?! on an error
+	## decrypt file for processing
+	eval 
+	{ 
+		$this->{'attributes'}->{'gpg'}->decrypt
+		( 
+			ciphertext  => $options->{'workingEncryptedFile'}, 
+			output 		=> $options->{'tempDecryptedFile'},
+			passphrase 	=> $options->{'passPhrase'}
+		);
+	};
+	
+	## catch error from decrypt call
+	if ($@) 
+	{
+		$this->addErrors(qq|decrypt raised an exception: $@|);
+		$status = 0;
+	} 	
 	
 	return($status);
 }
